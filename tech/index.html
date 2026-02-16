@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Настройка OpenClaw под ключ — кастомные скиллы, плагины, деплой</title>
+<meta name="description" content="Настройка и установка OpenClaw на VPS, Docker, локальный ПК. Кастомные скиллы, плагины TypeScript, интеграция Telegram, VK, MAX. Векторная память LanceDB, безопасность, поддержка. Работаем по всей России.">
+<meta name="keywords" content="настройка openclaw, установка openclaw, openclaw под ключ, openclaw VPS, openclaw Docker, openclaw Telegram, openclaw скиллы, openclaw плагины, openclaw в России, openclaw openrouter">
+<meta property="og:title" content="Настройка OpenClaw под ключ">
+<meta property="og:description" content="Кастомные скиллы, плагины, деплой на VPS или локальный ПК. Telegram, VK, MAX — любые каналы. Векторная память, безопасность, поддержка.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Настройка OpenClaw под ключ",
+  "description": "Установка, настройка и поддержка OpenClaw. Кастомные скиллы, плагины TypeScript, интеграция с Telegram, VK, MAX. Векторная память, безопасность.",
+  "provider": {
+    "@type": "Organization",
+    "name": "OpenClaw Setup",
+    "areaServed": "RU"
+  },
+  "serviceType": "AI Agent Setup",
+  "offers": [
+    {"@type": "Offer", "name": "Старт", "price": "30000", "priceCurrency": "RUB", "description": "Установка, 1 канал, базовый скилл, обучение"},
+    {"@type": "Offer", "name": "Бизнес", "price": "50000", "priceCurrency": "RUB", "description": "2 канала, кастомные скиллы, векторная память, контент-генерация"},
+    {"@type": "Offer", "name": "Премиум", "price": "80000", "priceCurrency": "RUB", "description": "Всё + кастомные плагины, интеграция с CRM, генерация документов"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Что такое OpenClaw?",
+      "acceptedAnswer": {"@type": "Answer", "text": "OpenClaw — open-source платформа для создания ИИ-агентов (190K+ звёзд GitHub). Работает на вашем сервере, подключается к Telegram, VK, MAX и другим мессенджерам. Лицензия MIT — бесплатна."}
+    },
+    {
+      "@type": "Question",
+      "name": "Как установить OpenClaw в России?",
+      "acceptedAnswer": {"@type": "Answer", "text": "OpenClaw работает в РФ через OpenRouter — он не заблокирован. Ставится на VPS (Ubuntu), локальный ПК или Docker. Нужен Node.js 22+, стабильный интернет и API-ключ OpenRouter."}
+    },
+    {
+      "@type": "Question",
+      "name": "Какие модели поддерживает OpenClaw?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Любые через OpenRouter: Claude, GPT, Gemini, MiniMax, Llama, Kimi. Также можно подключить локальные модели через Ollama. Для эмбеддингов — text-embedding-3-small через OpenRouter."}
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько стоит содержать OpenClaw?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Программа бесплатна (MIT). Затраты — только API модели: $1-15/мес через OpenRouter. VPS при необходимости — от 300 руб/мес. Для локального ПК — только стоимость API."}
+    },
+    {
+      "@type": "Question",
+      "name": "Чем отличается ваша настройка от Kwork за 2000 руб?",
+      "acceptedAnswer": {"@type": "Answer", "text": "На Kwork продают установку — npm install + базовый конфиг. Мы делаем кастомную настройку: скиллы под задачу, плагины TypeScript, интеграция с VK/CRM/ЮKassa, векторная память, hardening по чеклисту безопасности, и поддержка."}
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "OpenClaw Setup",
+  "description": "Настройка, кастомная доработка и поддержка OpenClaw — open-source ИИ-агент платформы с 190K+ звёзд GitHub.",
+  "areaServed": {"@type": "Country", "name": "Россия"},
+  "serviceType": ["Настройка OpenClaw", "Разработка плагинов", "Деплой ИИ-агентов"],
+  "knowsAbout": ["OpenClaw", "AI agents", "Telegram bots", "VK API", "LanceDB", "OpenRouter", "TypeScript plugins"],
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceType": "Telegram",
+    "serviceUrl": "https://t.me/kirprod"
+  },
+  "priceRange": "30000-100000 RUB"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Настройка OpenClaw под ключ — кастомные скиллы, плагины, деплой",
+  "description": "Настройка и установка OpenClaw на VPS, Docker, локальный ПК. Кастомные скиллы, плагины TypeScript, интеграция Telegram, VK, MAX.",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".hero h1", ".hero-sub", ".faq-q", ".faq-a"]
+  },
+  "mainEntity": {
+    "@type": "Service",
+    "name": "Настройка OpenClaw под ключ"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как мы настраиваем OpenClaw",
+  "description": "Процесс настройки OpenClaw под ключ: от разговора до продакшна",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Разговор",
+      "text": "Понимаем задачу: что нужно боту, какие каналы, какая нагрузка, где хостить."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Настройка",
+      "text": "Ставим OpenClaw, пишем скиллы и плагины, подключаем каналы и векторную память."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Тестирование",
+      "text": "Прогоняем сценарии, проверяем guardrails, настраиваем тон и точность ответов."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Запуск",
+      "text": "Деплой в продакшн, мониторинг, обучение. Дальше — поддержка по подписке."
+    }
+  ],
+  "totalTime": "P3D",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "RUB",
+    "minValue": 30000,
+    "maxValue": 100000
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f8f6f3;
+  --bg-grid:#e8e4df;
+  --ink:#1a1a2e;
+  --accent:#e85d26;
+  --accent2:#2b4acb;
+  --muted:#7a7a8c;
+  --code-bg:#1a1a2e;
+  --code-fg:#e8e4df;
+  --border:#d0ccc6;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'IBM Plex Mono',monospace;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  overflow-x:hidden;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size:40px 40px;
+  opacity:.45;
+  pointer-events:none;
+  z-index:0;
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:0 32px;position:relative;z-index:1}
+
+/* NAV */
+nav{
+  padding:24px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:2px solid var(--ink);
+}
+.logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:1.15rem;
+  letter-spacing:-.02em;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-mark{
+  width:32px;height:32px;
+  background:var(--accent);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:18px;font-weight:700;
+}
+nav a{
+  font-size:.8rem;
+  color:var(--muted);
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  transition:color .2s;
+}
+nav a:hover{color:var(--accent)}
+
+/* HERO */
+.hero{
+  padding:100px 0 80px;
+  border-bottom:2px solid var(--ink);
+  position:relative;
+}
+.hero-label{
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:var(--accent);
+  margin-bottom:24px;
+  font-weight:600;
+}
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.4rem,5.5vw,4.2rem);
+  font-weight:800;
+  line-height:1.08;
+  letter-spacing:-.03em;
+  max-width:750px;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--accent);
+}
+.hero-sub{
+  margin-top:28px;
+  font-size:.95rem;
+  color:var(--muted);
+  max-width:520px;
+  line-height:1.7;
+}
+.hero-cta{
+  margin-top:40px;
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.85rem;
+  font-weight:600;
+  border:2px solid var(--ink);
+  text-decoration:none;
+  transition:all .2s;
+  cursor:pointer;
+  background:transparent;
+  color:var(--ink);
+}
+.btn-fill{
+  background:var(--ink);
+  color:var(--bg);
+}
+.btn-fill:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero-stats{
+  margin-top:56px;
+  display:flex;gap:48px;flex-wrap:wrap;
+}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-weight:700;font-size:1.8rem;
+  color:var(--accent2);
+  letter-spacing:-.02em;
+}
+.stat-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+
+/* SECTIONS */
+section{padding:80px 0;border-bottom:1px solid var(--border)}
+.section-num{
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  color:var(--accent);
+  font-weight:600;
+  margin-bottom:12px;
+}
+section h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  font-weight:700;
+  letter-spacing:-.02em;
+  margin-bottom:40px;
+  line-height:1.15;
+}
+
+/* WHAT WE DO */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:2px;
+  background:var(--ink);
+  border:2px solid var(--ink);
+}
+.service-card{
+  background:var(--bg);
+  padding:32px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.service-icon{
+  width:40px;height:40px;
+  border:2px solid var(--accent);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+  flex-shrink:0;
+}
+.service-card h3{
+  font-family:'Syne',sans-serif;
+  font-weight:700;font-size:1.05rem;
+  letter-spacing:-.01em;
+}
+.service-card p{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* CODE BLOCK */
+.code-section{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px;
+  align-items:center;
+}
+.code-block{
+  background:var(--code-bg);
+  color:var(--code-fg);
+  padding:28px 24px;
+  border-radius:0;
+  border:2px solid var(--ink);
+  font-size:.78rem;
+  line-height:1.8;
+  overflow-x:auto;
+  position:relative;
+}
+.code-block::before{
+  content:'openclaw.json';
+  position:absolute;top:-1px;right:-1px;
+  background:var(--accent);
+  color:#fff;
+  padding:4px 12px;
+  font-size:.65rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:600;
+}
+.code-block .k{color:#e85d26}
+.code-block .s{color:#7ec8e3}
+.code-block .c{color:#5a5a6e;font-style:italic}
+.code-text h3{
+  font-family:'Syne',sans-serif;
+  font-weight:700;font-size:1.3rem;
+  margin-bottom:16px;
+}
+.code-text p{font-size:.85rem;color:var(--muted);margin-bottom:12px}
+.code-text ul{list-style:none;padding:0}
+.code-text ul li{
+  font-size:.82rem;
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.code-text ul li::before{content:'>';color:var(--accent);font-weight:700}
+
+/* STACK */
+.stack-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:24px;
+}
+.stack-tag{
+  padding:8px 18px;
+  border:1.5px solid var(--ink);
+  font-size:.75rem;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  transition:all .2s;
+  cursor:default;
+}
+.stack-tag:hover{
+  background:var(--ink);
+  color:var(--bg);
+}
+
+/* PRICING */
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2px;
+  background:var(--ink);
+  border:2px solid var(--ink);
+}
+.price-card{
+  background:var(--bg);
+  padding:36px 28px;
+}
+.price-card.featured{
+  background:var(--ink);
+  color:var(--bg);
+}
+.price-card.featured .price-amount{color:var(--accent)}
+.price-card.featured .price-desc{color:var(--code-fg);opacity:.7}
+.price-label{
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  margin-bottom:16px;
+  color:var(--muted);
+}
+.price-card.featured .price-label{color:var(--accent)}
+.price-amount{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:1.8rem;
+  letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+.price-desc{font-size:.78rem;color:var(--muted);line-height:1.6}
+
+/* PROCESS */
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:32px;
+  counter-reset:step;
+}
+.step{position:relative;padding-left:0}
+.step::before{
+  counter-increment:step;
+  content:counter(step,decimal-leading-zero);
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:2.2rem;
+  color:var(--accent);
+  opacity:.35;
+  display:block;
+  margin-bottom:12px;
+  line-height:1;
+}
+.step h3{
+  font-family:'Syne',sans-serif;
+  font-weight:700;font-size:.95rem;
+  margin-bottom:8px;
+}
+.step p{font-size:.78rem;color:var(--muted);line-height:1.6}
+
+/* FAQ */
+.faq{padding:80px 0;border-bottom:1px solid var(--border)}
+.faq-list{max-width:700px}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-q{
+  font-family:'Syne',sans-serif;
+  font-weight:700;font-size:.95rem;
+  margin-bottom:8px;
+  cursor:default;
+}
+.faq-a{font-size:.82rem;color:var(--muted);line-height:1.65}
+
+/* FOOTER CTA */
+.final-cta{
+  padding:100px 0;
+  text-align:center;
+  border-bottom:none;
+}
+.final-cta h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:800;
+  margin-bottom:20px;
+  letter-spacing:-.03em;
+}
+.final-cta p{
+  font-size:.9rem;
+  color:var(--muted);
+  margin-bottom:36px;
+  max-width:480px;
+  margin-left:auto;margin-right:auto;
+}
+.final-cta .btn{margin:0 8px}
+
+/* FOOTER */
+footer{
+  border-top:2px solid var(--ink);
+  padding:32px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+footer span{font-size:.75rem;color:var(--muted)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .code-section{grid-template-columns:1fr;gap:32px}
+  .hero-stats{gap:32px}
+  nav{flex-direction:column;gap:12px;align-items:flex-start}
+  footer{flex-direction:column;align-items:flex-start}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero h1,.hero-sub,.hero-cta,.hero-stats,
+section h2,.services-grid,.code-section,.pricing-grid,.process-steps{
+  animation:fadeUp .6s ease-out both;
+}
+.hero-sub{animation-delay:.1s}
+.hero-cta{animation-delay:.2s}
+.hero-stats{animation-delay:.3s}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">
+      <div class="logo-mark">OC</div>
+      OpenClaw Setup
+    </div>
+    <a href="#services">Услуги</a>
+  </nav>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-label">OpenClaw Expert</div>
+    <h1>Настройка <em>OpenClaw</em> под ключ</h1>
+    <p class="hero-sub">Кастомные скиллы, плагины, деплой на VPS или локальный ПК. Telegram, VK, MAX&nbsp;&mdash; любые каналы. Векторная память, безопасность, поддержка.</p>
+    <div class="hero-cta">
+      <a class="btn btn-fill" href="https://t.me/kirprod">Написать в Telegram</a>
+      <a class="btn" href="#services">Что делаем &darr;</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">190K+</span>
+        <span class="stat-label">GitHub Stars</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">15+</span>
+        <span class="stat-label">Каналов</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">MIT</span>
+        <span class="stat-label">Лицензия</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="services">
+  <section>
+    <div class="section-num">01 / Услуги</div>
+    <h2>Что делаем</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&gt;_</div>
+        <h3>Развёртывание</h3>
+        <p>Установка OpenClaw на ваш сервер, VPS, локальный ПК или Docker. Ubuntu, Windows, Raspberry Pi. Настройка systemd, автозапуск, мониторинг.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&lt;/&gt;</div>
+        <h3>Кастомные скиллы</h3>
+        <p>Пишем SKILL.md под вашу задачу: бизнес-ассистент, контент-генератор, трекер расходов, инвойсы. TDD-подход, проверка на ложные срабатывания.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9783;</div>
+        <h3>Плагины (TypeScript)</h3>
+        <p>registerTool, registerChannel, lifecycle hooks. Интеграция с VK, MAX, ЮKassa, amoCRM, Битрикс24 &mdash; любой сервис с API.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9881;</div>
+        <h3>Векторная память</h3>
+        <p>LanceDB + OpenRouter embeddings. Семантический поиск по базе знаний. Бот помнит контекст и учится на разговорах.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9736;</div>
+        <h3>Безопасность</h3>
+        <p>Hardening по чеклисту: firewall, токены, allowlist, изоляция сессий. Аудит через hackmyagent. CVE-мониторинг.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#8635;</div>
+        <h3>Поддержка</h3>
+        <p>Мониторинг, обновления, правки контента, решение проблем. Ежемесячная подписка. Реакция &mdash; в течение часа.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="section-num">02 / Конфиг</div>
+    <div class="code-section">
+      <div class="code-text">
+        <h3>Один конфиг &mdash; полный контроль</h3>
+        <p>Модель, каналы, скиллы, плагины, память &mdash; всё в одном JSON-файле. Никаких панелей управления, всё прозрачно.</p>
+        <ul>
+          <li>Любая модель: Claude, GPT, Gemini, MiniMax, Ollama</li>
+          <li>OpenRouter &mdash; не заблокирован в РФ</li>
+          <li>Telegram, VK, MAX, WhatsApp, Discord, Slack</li>
+          <li>Скиллы подгружаются по описанию (description match)</li>
+          <li>Векторная память через LanceDB</li>
+        </ul>
+      </div>
+      <div class="code-block">
+<span class="c">// ~/.openclaw/openclaw.json</span>
+{
+  <span class="k">"agents"</span>: {
+    <span class="k">"defaults"</span>: {
+      <span class="k">"model"</span>: {
+        <span class="k">"primary"</span>: <span class="s">"minimax/minimax-m2.5"</span>
+      }
+    }
+  },
+  <span class="k">"channels"</span>: {
+    <span class="k">"telegram"</span>: {
+      <span class="k">"dmPolicy"</span>: <span class="s">"allowlist"</span>,
+      <span class="k">"allowFrom"</span>: [<span class="s">"408001372"</span>]
+    }
+  },
+  <span class="k">"skills"</span>: {
+    <span class="k">"load"</span>: {
+      <span class="k">"extraDirs"</span>: [<span class="s">"/home/user/skills"</span>]
+    }
+  },
+  <span class="k">"plugins"</span>: {
+    <span class="k">"slots"</span>: {
+      <span class="k">"memory"</span>: <span class="s">"memory-lancedb"</span>
+    }
+  }
+}
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="section-num">03 / Стек</div>
+    <h2>Технологии</h2>
+    <div class="stack-row">
+      <span class="stack-tag">OpenClaw</span>
+      <span class="stack-tag">Node.js 22</span>
+      <span class="stack-tag">TypeScript</span>
+      <span class="stack-tag">OpenRouter</span>
+      <span class="stack-tag">LanceDB</span>
+      <span class="stack-tag">Docker</span>
+      <span class="stack-tag">Telegram Bot API</span>
+      <span class="stack-tag">VK Community API</span>
+      <span class="stack-tag">MAX Bot API</span>
+      <span class="stack-tag">Whisper</span>
+      <span class="stack-tag">Chrome Headless</span>
+      <span class="stack-tag">systemd</span>
+      <span class="stack-tag">Ubuntu / Windows</span>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="section-num">04 / Процесс</div>
+    <h2>Как работаем</h2>
+    <div class="process-steps">
+      <div class="step">
+        <h3>Разговор</h3>
+        <p>Понимаем задачу: что нужно боту, какие каналы, какая нагрузка, где хостить.</p>
+      </div>
+      <div class="step">
+        <h3>Настройка</h3>
+        <p>Ставим OpenClaw, пишем скиллы и плагины, подключаем каналы и память.</p>
+      </div>
+      <div class="step">
+        <h3>Тестирование</h3>
+        <p>Прогоняем сценарии, проверяем guardrails, настраиваем тон и точность.</p>
+      </div>
+      <div class="step">
+        <h3>Запуск</h3>
+        <p>Деплой в продакшн, мониторинг, обучение. Поддержка по подписке.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="section-num">05 / Цены</div>
+    <h2>Тарифы</h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-label">Старт</div>
+        <div class="price-amount">30 000 &#8381;</div>
+        <p class="price-desc">Установка, 1 канал, базовый скилл, обучение. Для тех кто хочет попробовать.</p>
+      </div>
+      <div class="price-card featured">
+        <div class="price-label">Бизнес</div>
+        <div class="price-amount">50 000 &#8381;</div>
+        <p class="price-desc">2 канала, кастомные скиллы, векторная память, контент-генерация. Полный набор.</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">Премиум</div>
+        <div class="price-amount">80-100K &#8381;</div>
+        <p class="price-desc">Всё + кастомные плагины, интеграция с CRM, генерация документов.</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">Подписка</div>
+        <div class="price-amount">5-15K &#8381;/мес</div>
+        <p class="price-desc">Мониторинг, обновления, правки контента, поддержка. Реакция в течение часа.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="faq">
+    <div class="section-num">06 / FAQ</div>
+    <h2>Частые вопросы</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Что такое OpenClaw?</div>
+        <div class="faq-a">Open-source платформа для создания ИИ-агентов (190K+ звёзд GitHub). Работает на вашем сервере, подключается к Telegram, VK, MAX и другим мессенджерам. Лицензия MIT — бесплатна.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Как установить OpenClaw в России?</div>
+        <div class="faq-a">OpenClaw работает в РФ через OpenRouter — он не заблокирован. Ставится на VPS (Ubuntu), локальный ПК или Docker. Нужен Node.js 22+, стабильный интернет и API-ключ OpenRouter.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Какие модели поддерживает?</div>
+        <div class="faq-a">Любые через OpenRouter: Claude, GPT, Gemini, MiniMax, Llama, Kimi. Можно подключить локальные модели через Ollama. Для векторной памяти — text-embedding-3-small через OpenRouter.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Сколько стоит содержать OpenClaw?</div>
+        <div class="faq-a">Программа бесплатна. Затраты — только API: $1-15/мес через OpenRouter. VPS — от 300 руб/мес. На локальном ПК — только API.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Чем ваша настройка отличается от фриланса за 2000 руб?</div>
+        <div class="faq-a">На фрилансе продают установку — npm install + базовый конфиг. Мы делаем кастомную настройку: скиллы под задачу, плагины TypeScript, интеграция с VK/CRM/ЮKassa, векторная память LanceDB, hardening по чеклисту безопасности, и долгосрочная поддержка.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="final-cta">
+    <h2>Готовы обсудить?</h2>
+    <p>Расскажите что нужно &mdash; посчитаем сроки и стоимость. Первая консультация бесплатно.</p>
+    <a class="btn btn-fill" href="https://t.me/kirprod">Telegram</a>
+  </section>
+</div>
+
+<div class="wrap">
+  <footer>
+    <span>OpenClaw Setup &middot; Настройка и поддержка</span>
+    <span>Удмуртия &middot; Работаем удалённо по всей РФ</span>
+  </footer>
+</div>
+
+</body>
+</html>
